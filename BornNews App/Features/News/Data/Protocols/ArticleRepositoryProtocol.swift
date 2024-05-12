@@ -8,9 +8,7 @@
 import Foundation
 
 protocol ArticleRepositoryProtocol {
-    func getHeadlineArticles() async -> Result<[Article], Error>
-    
-    func getHeadlineArticles(handler: @escaping (Result<[Article], RemoteDataSourceError>) -> Void)
+    func getHeadlineArticles() async -> Result<[Article], RemoteDataSourceError>
     
 }
 

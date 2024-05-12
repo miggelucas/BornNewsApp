@@ -24,17 +24,20 @@ class MainViewModel {
     weak var delegate: MainViewModelDelegate?
     
     func loadArticles() {
-        articleRepository.getHeadlineArticles { [weak self] result in
+        Task {
+            let result = await articleRepository.getHeadlineArticles()
             switch result {
             case .success(let data):
-                self?.articles = data
-                self?.delegate?.didUpdateArticles()
+                self.articles = data
+                delegate?.didUpdateArticles()
             case .failure:
                 print("ERROR: viewModel Failed to get Articles")
                 return
             }
         }
     }
+    
+    let items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
     
     public func viewDidAppear() {
         loadArticles()

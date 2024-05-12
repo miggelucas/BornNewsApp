@@ -16,6 +16,7 @@
 		0C124AF22BF04373007FC28D /* ViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AF12BF04373007FC28D /* ViewControllerPreview.swift */; };
 		0C124AF42BF0440A007FC28D /* ViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AF32BF0440A007FC28D /* ViewPreview.swift */; };
 		0C124AF62BF0454E007FC28D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AF52BF0454E007FC28D /* MainViewModel.swift */; };
+		0C124AF92BF0634F007FC28D /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AF82BF0634F007FC28D /* NetworkSession.swift */; };
 		0C57DFDB2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */; };
 		0C57DFDD2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */; };
 		0C57DFE12BEFE1E70045BFD9 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFE02BEFE1E70045BFD9 /* ArticleRepository.swift */; };
@@ -56,6 +57,7 @@
 		0C124AF12BF04373007FC28D /* ViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPreview.swift; sourceTree = "<group>"; };
 		0C124AF32BF0440A007FC28D /* ViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreview.swift; sourceTree = "<group>"; };
 		0C124AF52BF0454E007FC28D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		0C124AF82BF0634F007FC28D /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRemoteDataSourceProtocol.swift; sourceTree = "<group>"; };
 		0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepositoryTest.swift; sourceTree = "<group>"; };
 		0C57DFE02BEFE1E70045BFD9 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 				0C124AE92BF03AE3007FC28D /* MainCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		0C124AF72BF0633C007FC28D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0C124AF82BF0634F007FC28D /* NetworkSession.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		0C57DFD82BEFDFFD0045BFD9 /* Model */ = {
@@ -237,6 +247,7 @@
 		0C73C92F2BEFDBCD001355D7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0C124AF72BF0633C007FC28D /* Network */,
 				0C124AE82BF03AD6007FC28D /* Coordinator */,
 				0C124ADA2BEFE618007FC28D /* Error */,
 			);
@@ -457,6 +468,7 @@
 				0C57DFE12BEFE1E70045BFD9 /* ArticleRepository.swift in Sources */,
 				0C73C8FE2BEFDAAF001355D7 /* AppDelegate.swift in Sources */,
 				0C124AEA2BF03AE3007FC28D /* MainCoordinator.swift in Sources */,
+				0C124AF92BF0634F007FC28D /* NetworkSession.swift in Sources */,
 				0C124AF22BF04373007FC28D /* ViewControllerPreview.swift in Sources */,
 				0C124AF62BF0454E007FC28D /* MainViewModel.swift in Sources */,
 				0C57DFDB2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift in Sources */,

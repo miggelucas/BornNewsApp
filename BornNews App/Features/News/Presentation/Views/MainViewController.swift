@@ -76,7 +76,9 @@ class MainViewController: UIViewController {
 
 extension MainViewController: MainViewModelDelegate {
     func didUpdateArticles() {
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 

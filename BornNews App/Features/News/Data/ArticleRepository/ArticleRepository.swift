@@ -15,23 +15,12 @@ class ArticleRepository: ArticleRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
-    func getHeadlineArticles(handler: @escaping (Result<[Article], RemoteDataSourceError>) -> Void) {
-        Task {
-            do {
-                let result = try await remoteDataSource.fetchHeadlineArticles()
-                print(result)
-                handler(.success(result))
-            } catch {
-                handler(.failure(RemoteDataSourceError.failedToFetch))
-            }
-        }
-    }
-    
-    func getHeadlineArticles() async -> Result<[Article], any Error> {
+    func getHeadlineArticles() async -> Result<[Article], RemoteDataSourceError> {
         do {
-//            let result = try await remoteDataSource.fetchHeadlineArticles()
-            return .success(Article.getSampleArticles())
+            let result = try await remoteDataSource.fetchHeadlineArticles()
+            return .success(result)
         } catch {
+            print("ERROR: Failed to Fetch from Remote Datasource")
             return .failure(RemoteDataSourceError.failedToFetch)
         }
     }

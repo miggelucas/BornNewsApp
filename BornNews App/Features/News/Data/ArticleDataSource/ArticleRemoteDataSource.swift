@@ -7,13 +7,6 @@
 
 import Foundation
 
-// Protocolo para o provedor de sessão de rede
-protocol NetworkSession {
-    func data(for request: URLRequest, delegate: (any URLSessionTaskDelegate)?) async throws -> (Data, URLResponse)
-}
-
-// Implementação padrão do provedor de sessão de rede
-extension URLSession: NetworkSession {}
 
 class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
     
@@ -23,7 +16,7 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
         self.networkSession = networkSession
     }
     
-    let API_KEY: String = "f83edef801734100bac6b68e410e4364f83edef801734100bac6b68e410e4364"
+    let API_KEY: String = "f83edef801734100bac6b68e410e4364"
     
     enum EndPointsAPI {
         case headlines
@@ -41,25 +34,28 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
     }
     
     func fetchHeadlineArticles() async throws -> [Article] {
-        var baseUrl = URLComponents(string: EndPointsAPI.headlines.value)
+        var baseComponent = URLComponents(string: EndPointsAPI.headlines.value)
         
-        baseUrl?.queryItems = [
-            URLQueryItem(name: "country", value: "us"),
+
+        baseComponent?.queryItems = [
+            URLQueryItem(name: "country", value: "pt"),
             URLQueryItem(name: "apiKey", value: API_KEY)
         ]
         
-        guard let url = baseUrl?.url else { throw RemoteDataSourceError.badRequest }
+        guard let url = baseComponent?.url else {
+            throw RemoteDataSourceError.badRequest
+        }
+        
+        let request = URLRequest(url: url)
         
         do {
-            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url), delegate: nil)
+            let (data, _) = try await networkSession.data(for: request, delegate: nil)
             
-            let response = try JSONDecoder().decode(ArticleResponse.self, from: data)
+            let fetchedData = try JSONDecoder().decode(ArticleResponse.self, from: data)
             
-            if response.status != "ok" {
-                throw RemoteDataSourceError.serverError
-            } else {
-                return response.articles
-            }
+            guard fetchedData.status == "ok" else { throw RemoteDataSourceError.serverError}
+            
+            return fetchedData.articles
             
         } catch {
             throw RemoteDataSourceError.failedToFetch
