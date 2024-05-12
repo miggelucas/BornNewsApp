@@ -47,6 +47,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        setupNavigationController()
         setupViews()
         setupConstraints()
         
@@ -59,6 +61,11 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - Setup
+    
+    private func setupNavigationController() {
+        self.title = "BornNews"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
     
     private func setupViews() {
         setupTableView()
@@ -110,14 +117,12 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewModelDelegate {
     func didChangeState() {
         if viewModel.state == .content {
-            refreshControl.endRefreshing()
-            
             DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
                 self.tableView.isHidden = false
                 self.loadingView.isHidden = true
                 self.loadingView.stopAnimating()
                 self.tableView.reloadData()
-                
             }
         }
     }
@@ -131,8 +136,12 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        configureCell(cell, at: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+//        configureCell(cell, at: indexPath)
+//        return cell
+        
+        let cell = ArticleTableViewCell(style: .default, reuseIdentifier: ArticleTableViewCell.identifier)
+        cell.configure(with: viewModel.articles[indexPath.row])
         return cell
     }
     
@@ -147,6 +156,7 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.didSelectRow(at: indexPath)
         
     }
 }

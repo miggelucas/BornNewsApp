@@ -23,7 +23,15 @@ class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = MainViewController(viewModel: MainViewModel())
+        let viewModel = MainViewModel(coordinator: self)
+        let vc = MainViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
+    }
+}
+
+extension MainCoordinator: MainViewCoordinatorDelegate {
+    func didSelectArticle(_ article: Article) {
+        let vc = UIViewController()
+        navigationController.pushViewController(vc, animated: true)
     }
 }

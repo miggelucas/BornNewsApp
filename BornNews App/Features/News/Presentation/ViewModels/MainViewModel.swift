@@ -11,6 +11,10 @@ protocol MainViewModelDelegate: AnyObject {
     func didChangeState()
 }
 
+protocol MainViewCoordinatorDelegate: AnyObject {
+    func didSelectArticle(_ article: Article)
+}
+
 class MainViewModel {
     
     enum State {
@@ -19,6 +23,9 @@ class MainViewModel {
     
     let articleRepository: ArticleRepositoryProtocol
     
+    weak var coordinator: MainViewCoordinatorDelegate?
+    weak var delegate: MainViewModelDelegate?
+    
     var articles: [Article] = []
     var state: State = .loading {
         didSet {
@@ -26,17 +33,18 @@ class MainViewModel {
         }
     }
     
-    init(articleRepository: ArticleRepositoryProtocol = ArticleRepository()) {
+    init(articleRepository: ArticleRepositoryProtocol = ArticleRepository(),
+         coordinator: MainViewCoordinatorDelegate? = nil) {
         self.articleRepository = articleRepository
+        self.coordinator = coordinator
     }
-    
-    weak var delegate: MainViewModelDelegate?
     
     private func loadArticles() {
         self.state = .loading
         
         Task {
             let result = await articleRepository.getHeadlineArticles()
+            
             switch result {
             case .success(let data):
                 self.articles = data
@@ -56,5 +64,10 @@ class MainViewModel {
     
     public func refreshTableView() {
         loadArticles()
+    }
+    
+    public func didSelectRow(at index: IndexPath) {
+        let article = articles[index.row]
+        coordinator?.didSelectArticle(article)
     }
 }
