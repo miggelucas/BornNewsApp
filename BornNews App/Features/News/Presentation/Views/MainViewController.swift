@@ -25,15 +25,24 @@ class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .singleLine
         return tableView
     }()
     
-
+    let refreshControl = UIRefreshControl()
+    
+    lazy var loadingView: UIActivityIndicatorView = {
+        let loadingView = UIActivityIndicatorView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.color = .purple
+        return loadingView
+    }()
+    
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -53,6 +62,14 @@ class MainViewController: UIViewController {
     
     private func setupViews() {
         setupTableView()
+        setupRefreshControl()
+        setupLoadingView()
+
+    }
+    
+    private func setupLoadingView() {
+        loadingView.startAnimating()
+        view.addSubview(loadingView)
     }
     
     private func setupTableView() {
@@ -60,6 +77,8 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        tableView.isHidden = true
     }
     
     private func setupConstraints() {
@@ -67,17 +86,39 @@ class MainViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            
+            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+    
+    private func setupRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(refreshControlAction), for: .valueChanged)
+        refreshControl.tintColor = .purple
+        tableView.refreshControl = refreshControl
+    }
+    
+    @objc private func refreshControlAction() {
+        viewModel.refreshTableView()
     }
 }
 
 // MARK: - MainViewModelDelegate
 
 extension MainViewController: MainViewModelDelegate {
-    func didUpdateArticles() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+    func didChangeState() {
+        if viewModel.state == .content {
+            refreshControl.endRefreshing()
+            
+            DispatchQueue.main.async {
+                self.tableView.isHidden = false
+                self.loadingView.isHidden = true
+                self.loadingView.stopAnimating()
+                self.tableView.reloadData()
+                
+            }
         }
     }
 }
@@ -106,7 +147,7 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-     
+        
     }
 }
 
@@ -116,9 +157,9 @@ extension MainViewController: UITableViewDelegate {
 import SwiftUI
 
 struct ProductViewController_Previews: PreviewProvider {
-  static var previews: some View {
-    ViewControllerPreview {
-        UINavigationController(rootViewController: MainViewController(viewModel: MainViewModel()))
+    static var previews: some View {
+        ViewControllerPreview {
+            UINavigationController(rootViewController: MainViewController(viewModel: MainViewModel()))
+        }
     }
-  }
 }#endif

@@ -8,14 +8,23 @@
 import Foundation
 
 protocol MainViewModelDelegate: AnyObject {
-    func didUpdateArticles()
+    func didChangeState()
 }
 
 class MainViewModel {
     
+    enum State {
+        case loading, content
+    }
+    
     let articleRepository: ArticleRepositoryProtocol
     
     var articles: [Article] = []
+    var state: State = .loading {
+        didSet {
+            delegate?.didChangeState()
+        }
+    }
     
     init(articleRepository: ArticleRepositoryProtocol = ArticleRepository()) {
         self.articleRepository = articleRepository
@@ -23,23 +32,29 @@ class MainViewModel {
     
     weak var delegate: MainViewModelDelegate?
     
-    func loadArticles() {
+    private func loadArticles() {
+        self.state = .loading
+        
         Task {
             let result = await articleRepository.getHeadlineArticles()
             switch result {
             case .success(let data):
                 self.articles = data
-                delegate?.didUpdateArticles()
+               
             case .failure:
                 print("ERROR: viewModel Failed to get Articles")
-                return
+        
             }
+            
+            self.state = .content
         }
     }
     
-    let items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
-    
     public func viewDidAppear() {
+        loadArticles()
+    }
+    
+    public func refreshTableView() {
         loadArticles()
     }
 }
