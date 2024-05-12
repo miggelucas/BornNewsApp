@@ -23,7 +23,7 @@ class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = MainViewController()
+        let vc = MainViewController(viewModel: MainViewModel())
         navigationController.pushViewController(vc, animated: false)
     }
 }

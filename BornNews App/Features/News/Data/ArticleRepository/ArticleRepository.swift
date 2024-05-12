@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ArticleRepository: ArticleRepositoble {
+class ArticleRepository: ArticleRepositoryProtocol {
     
     let remoteDataSource: ArticleRemoteDataSourceProtocol
     
@@ -15,11 +15,22 @@ class ArticleRepository: ArticleRepositoble {
         self.remoteDataSource = remoteDataSource
     }
     
+    func getHeadlineArticles(handler: @escaping (Result<[Article], RemoteDataSourceError>) -> Void) {
+        Task {
+            do {
+                let result = try await remoteDataSource.fetchHeadlineArticles()
+                print(result)
+                handler(.success(result))
+            } catch {
+                handler(.failure(RemoteDataSourceError.failedToFetch))
+            }
+        }
+    }
     
     func getHeadlineArticles() async -> Result<[Article], any Error> {
         do {
-            let result = try await remoteDataSource.fetchHeadlineArticles()
-            return .success(result)
+//            let result = try await remoteDataSource.fetchHeadlineArticles()
+            return .success(Article.getSampleArticles())
         } catch {
             return .failure(RemoteDataSourceError.failedToFetch)
         }

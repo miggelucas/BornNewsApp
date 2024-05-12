@@ -51,7 +51,7 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
         guard let url = baseUrl?.url else { throw RemoteDataSourceError.badRequest }
         
         do {
-            let (data, _) = try await networkSession.data(for: URLRequest(url: url), delegate: nil)
+            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url), delegate: nil)
             
             let response = try JSONDecoder().decode(ArticleResponse.self, from: data)
             

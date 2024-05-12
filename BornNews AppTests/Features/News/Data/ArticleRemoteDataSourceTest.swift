@@ -10,6 +10,18 @@ import XCTest
 
 class NetworkSessionMock: NetworkSession {
     
+    let sampleArticleData = """
+    {
+        "author": "John Doe",
+        "title": "Sample Article Title",
+        "description": "This is a sample article description.",
+        "url": "https://www.example.com/sample-article",
+        "urlToImage": "https://www.example.com/sample-image.jpg",
+        "publishedAt": "2024-05-12T10:00:00Z",
+        "content": "This is a sample article content."
+    }
+    """.data(using: .utf8)!
+    
     enum NetworkSessionError: Error {
         case fail
     }
