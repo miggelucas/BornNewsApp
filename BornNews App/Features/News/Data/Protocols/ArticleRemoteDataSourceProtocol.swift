@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ArticleDataSourceble {
+protocol ArticleRemoteDataSourceProtocol {
     func fetchHeadlineArticles() async throws -> [Article]
 }

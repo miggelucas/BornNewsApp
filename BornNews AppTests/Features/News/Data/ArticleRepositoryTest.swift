@@ -8,7 +8,7 @@
 import XCTest
 @testable import BornNews_App
 
-class ArticleDataSourceMock: ArticleDataSourceble {
+class RemoteArticleDataSourceMock: ArticleRemoteDataSourceProtocol {
     var shouldFetchHeadlineArticlesBeSuccessful: Bool = true
     var didCallFetchHeadlineArticles: Bool = false
     
@@ -28,10 +28,10 @@ class ArticleDataSourceMock: ArticleDataSourceble {
 final class ArticleRepositoryTest: XCTestCase {
     
     var repository: ArticleRepository!
-    var articleDataSourceMock: ArticleDataSourceMock!
+    var articleDataSourceMock: RemoteArticleDataSourceMock!
     
     override func setUpWithError() throws {
-        articleDataSourceMock = ArticleDataSourceMock()
+        articleDataSourceMock = RemoteArticleDataSourceMock()
         repository = ArticleRepository(remoteDataSource: articleDataSourceMock)
     }
     

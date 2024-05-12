@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C124AD92BEFE430007FC28D /* ArticleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AD82BEFE430007FC28D /* ArticleDataSource.swift */; };
+		0C124AD92BEFE430007FC28D /* ArticleRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AD82BEFE430007FC28D /* ArticleRemoteDataSource.swift */; };
 		0C124ADC2BEFE637007FC28D /* RemoteDataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124ADB2BEFE637007FC28D /* RemoteDataSourceError.swift */; };
-		0C57DFDB2BEFE0300045BFD9 /* ArticleDataSourceble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDA2BEFE0300045BFD9 /* ArticleDataSourceble.swift */; };
+		0C124AE02BEFF0A7007FC28D /* ArticleRemoteDataSourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124ADF2BEFF0A7007FC28D /* ArticleRemoteDataSourceTest.swift */; };
+		0C124AE22BF033CC007FC28D /* ArticleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AE12BF033CC007FC28D /* ArticleResponse.swift */; };
+		0C124AE72BF03A70007FC28D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AE62BF03A70007FC28D /* MainViewController.swift */; };
+		0C124AEA2BF03AE3007FC28D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C124AE92BF03AE3007FC28D /* MainCoordinator.swift */; };
+		0C57DFDB2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */; };
 		0C57DFDD2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */; };
 		0C57DFE12BEFE1E70045BFD9 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFE02BEFE1E70045BFD9 /* ArticleRepository.swift */; };
 		0C73C8FE2BEFDAAF001355D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C73C8FD2BEFDAAF001355D7 /* AppDelegate.swift */; };
 		0C73C9002BEFDAAF001355D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C73C8FF2BEFDAAF001355D7 /* SceneDelegate.swift */; };
-		0C73C9022BEFDAAF001355D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C73C9012BEFDAAF001355D7 /* ViewController.swift */; };
-		0C73C9052BEFDAAF001355D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 0C73C9042BEFDAAF001355D7 /* Base */; };
 		0C73C9072BEFDAB0001355D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C73C9062BEFDAB0001355D7 /* Assets.xcassets */; };
 		0C73C90A2BEFDAB0001355D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 0C73C9092BEFDAB0001355D7 /* Base */; };
 		0C73C91F2BEFDAB1001355D7 /* BornNews_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C73C91E2BEFDAB1001355D7 /* BornNews_AppUITests.swift */; };
@@ -42,16 +44,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C124AD82BEFE430007FC28D /* ArticleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDataSource.swift; sourceTree = "<group>"; };
+		0C124AD82BEFE430007FC28D /* ArticleRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRemoteDataSource.swift; sourceTree = "<group>"; };
 		0C124ADB2BEFE637007FC28D /* RemoteDataSourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceError.swift; sourceTree = "<group>"; };
-		0C57DFDA2BEFE0300045BFD9 /* ArticleDataSourceble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDataSourceble.swift; sourceTree = "<group>"; };
+		0C124ADF2BEFF0A7007FC28D /* ArticleRemoteDataSourceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRemoteDataSourceTest.swift; sourceTree = "<group>"; };
+		0C124AE12BF033CC007FC28D /* ArticleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleResponse.swift; sourceTree = "<group>"; };
+		0C124AE62BF03A70007FC28D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0C124AE92BF03AE3007FC28D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRemoteDataSourceProtocol.swift; sourceTree = "<group>"; };
 		0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepositoryTest.swift; sourceTree = "<group>"; };
 		0C57DFE02BEFE1E70045BFD9 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
 		0C73C8FA2BEFDAAF001355D7 /* BornNews App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BornNews App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C73C8FD2BEFDAAF001355D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C73C8FF2BEFDAAF001355D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0C73C9012BEFDAAF001355D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0C73C9042BEFDAAF001355D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C73C9062BEFDAB0001355D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C73C9092BEFDAB0001355D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C73C90B2BEFDAB0001355D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,10 +100,41 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		0C124AE32BF03954007FC28D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0C124AE42BF03A3A007FC28D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0C124AE62BF03A70007FC28D /* MainViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0C124AE52BF03A44007FC28D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0C124AE82BF03AD6007FC28D /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0C124AE92BF03AE3007FC28D /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		0C57DFD82BEFDFFD0045BFD9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				0C73C93C2BEFDEE2001355D7 /* Article.swift */,
+				0C124AE12BF033CC007FC28D /* ArticleResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				0C73C93A2BEFDD18001355D7 /* ArticleRepositoble.swift */,
-				0C57DFDA2BEFE0300045BFD9 /* ArticleDataSourceble.swift */,
+				0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -116,7 +151,7 @@
 		0C57DFDE2BEFE1B50045BFD9 /* ArticleDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				0C124AD82BEFE430007FC28D /* ArticleDataSource.swift */,
+				0C124AD82BEFE430007FC28D /* ArticleRemoteDataSource.swift */,
 			);
 			path = ArticleDataSource;
 			sourceTree = "<group>";
@@ -157,8 +192,6 @@
 				0C73C9302BEFDBDA001355D7 /* Features */,
 				0C73C92F2BEFDBCD001355D7 /* Core */,
 				0C73C92D2BEFDBB7001355D7 /* Utils */,
-				0C73C9012BEFDAAF001355D7 /* ViewController.swift */,
-				0C73C9032BEFDAAF001355D7 /* Main.storyboard */,
 				0C73C9062BEFDAB0001355D7 /* Assets.xcassets */,
 				0C73C9082BEFDAB0001355D7 /* LaunchScreen.storyboard */,
 				0C73C90B2BEFDAB0001355D7 /* Info.plist */,
@@ -169,6 +202,7 @@
 		0C73C9132BEFDAB1001355D7 /* BornNews AppTests */ = {
 			isa = PBXGroup;
 			children = (
+				0C124AE32BF03954007FC28D /* Utils */,
 				0C73C9362BEFDCB8001355D7 /* Features */,
 				0C73C9352BEFDCB0001355D7 /* Core */,
 			);
@@ -194,6 +228,7 @@
 		0C73C92F2BEFDBCD001355D7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0C124AE82BF03AD6007FC28D /* Coordinator */,
 				0C124ADA2BEFE618007FC28D /* Error */,
 			);
 			path = Core;
@@ -230,6 +265,8 @@
 		0C73C9342BEFDC27001355D7 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				0C124AE52BF03A44007FC28D /* ViewModels */,
+				0C124AE42BF03A3A007FC28D /* Views */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -262,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */,
+				0C124ADF2BEFF0A7007FC28D /* ArticleRemoteDataSourceTest.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -380,7 +418,6 @@
 			files = (
 				0C73C9072BEFDAB0001355D7 /* Assets.xcassets in Resources */,
 				0C73C90A2BEFDAB0001355D7 /* Base in Resources */,
-				0C73C9052BEFDAAF001355D7 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,14 +443,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C73C93B2BEFDD18001355D7 /* ArticleRepositoble.swift in Sources */,
-				0C124AD92BEFE430007FC28D /* ArticleDataSource.swift in Sources */,
+				0C124AD92BEFE430007FC28D /* ArticleRemoteDataSource.swift in Sources */,
 				0C124ADC2BEFE637007FC28D /* RemoteDataSourceError.swift in Sources */,
 				0C57DFE12BEFE1E70045BFD9 /* ArticleRepository.swift in Sources */,
-				0C73C9022BEFDAAF001355D7 /* ViewController.swift in Sources */,
 				0C73C8FE2BEFDAAF001355D7 /* AppDelegate.swift in Sources */,
-				0C57DFDB2BEFE0300045BFD9 /* ArticleDataSourceble.swift in Sources */,
+				0C124AEA2BF03AE3007FC28D /* MainCoordinator.swift in Sources */,
+				0C57DFDB2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift in Sources */,
 				0C73C9002BEFDAAF001355D7 /* SceneDelegate.swift in Sources */,
 				0C73C93D2BEFDEE2001355D7 /* Article.swift in Sources */,
+				0C124AE22BF033CC007FC28D /* ArticleResponse.swift in Sources */,
+				0C124AE72BF03A70007FC28D /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C57DFDD2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift in Sources */,
+				0C124AE02BEFF0A7007FC28D /* ArticleRemoteDataSourceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,14 +490,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0C73C9032BEFDAAF001355D7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0C73C9042BEFDAAF001355D7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0C73C9082BEFDAB0001355D7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -601,7 +633,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = BornNews;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
@@ -635,7 +666,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = BornNews;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;

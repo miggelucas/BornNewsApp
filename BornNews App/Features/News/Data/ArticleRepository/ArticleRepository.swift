@@ -9,9 +9,9 @@ import Foundation
 
 class ArticleRepository: ArticleRepositoble {
     
-    let remoteDataSource: ArticleDataSourceble
+    let remoteDataSource: ArticleRemoteDataSourceProtocol
     
-    init(remoteDataSource: ArticleDataSourceble = ArticleDataSource() ) {
+    init(remoteDataSource: ArticleRemoteDataSourceProtocol = ArticleRemoteDataSource() ) {
         self.remoteDataSource = remoteDataSource
     }
     
