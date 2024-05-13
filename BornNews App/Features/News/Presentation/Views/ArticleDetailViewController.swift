@@ -30,7 +30,11 @@ class ArticleDetailViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var contentView: ArticleDetailComponentView = DescriptionComponentView()
+    private lazy var DescriptionView: DescriptionComponentView = {
+        let descriptionView = DescriptionComponentView()
+        descriptionView.delegate = viewModel
+        return descriptionView
+    }()
     
     let viewModel: ArticleDetailViewModel
     
@@ -62,7 +66,7 @@ class ArticleDetailViewController: UIViewController {
     
     private func setupContent() {
         headerView.configure(with: viewModel.article)
-        contentView.configure(with: viewModel.article)
+        DescriptionView.configure(with: viewModel.article)
     }
     
     func setupView() {
@@ -70,7 +74,7 @@ class ArticleDetailViewController: UIViewController {
         
         scrollView.addSubview(headerView.view)
         scrollView.addSubview(articleImageView)
-        scrollView.addSubview(contentView.view)
+        scrollView.addSubview(DescriptionView.view)
         
         NSLayoutConstraint.activate([
                 
@@ -92,11 +96,11 @@ class ArticleDetailViewController: UIViewController {
                 articleImageView.heightAnchor.constraint(equalToConstant: 200),
 
                 
-                contentView.view.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 20),
-                contentView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-                contentView.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-                contentView.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
-                contentView.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40)
+                DescriptionView.view.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 20),
+                DescriptionView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+                DescriptionView.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+                DescriptionView.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
+                DescriptionView.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40)
                 
             ])
     }

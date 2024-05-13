@@ -12,14 +12,20 @@ protocol ArticleDetailViewModelDelegate: AnyObject {
     func shouldUpdateArticleImage(uiImage: UIImage)
 }
 
+protocol ArticleDetailViewModelCoordinator: AnyObject {
+    func goToLink(url: URL)
+}
+
 class ArticleDetailViewModel {
     
     var article: Article
     
     weak var delegate: ArticleDetailViewModelDelegate?
+    weak var coordinator: ArticleDetailViewModelCoordinator?
     
-    init(article: Article = Article.getSample()) {
+    init(article: Article = Article.getSample(), coordinator: ArticleDetailViewModelCoordinator? = nil) {
         self.article = article
+        self.coordinator = coordinator
     
     }
     
@@ -51,5 +57,12 @@ class ArticleDetailViewModel {
             
             delegate?.shouldUpdateArticleImage(uiImage: uiImage)
         }
+    }
+}
+
+extension ArticleDetailViewModel: DescriptionComponentViewDelegate {
+    func didTapOnKnowMore() {
+        guard let url = URL(string: article.url) else { return }
+        coordinator?.goToLink(url: url)
     }
 }

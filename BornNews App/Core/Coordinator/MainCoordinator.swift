@@ -34,8 +34,14 @@ class MainCoordinator: Coordinator {
 extension MainCoordinator: MainViewCoordinatorDelegate {
     func didSelectArticle(_ article: Article) {
         
-        let viewModel = ArticleDetailViewModel(article: article)
+        let viewModel = ArticleDetailViewModel(article: article, coordinator: self)
         let vc = ArticleDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension MainCoordinator: ArticleDetailViewModelCoordinator {
+    func goToLink(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
