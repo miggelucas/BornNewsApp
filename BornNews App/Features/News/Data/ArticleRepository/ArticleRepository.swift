@@ -15,6 +15,7 @@ class ArticleRepository: ArticleRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
+    
     func getHeadlineArticles() async -> Result<[Article], RemoteDataSourceError> {
         do {
             let result = try await remoteDataSource.fetchHeadlineArticles()

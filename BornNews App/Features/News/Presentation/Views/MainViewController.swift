@@ -136,9 +136,6 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//        configureCell(cell, at: indexPath)
-//        return cell
         
         let cell = ArticleTableViewCell(style: .default, reuseIdentifier: ArticleTableViewCell.identifier)
         cell.configure(with: viewModel.articles[indexPath.row])
