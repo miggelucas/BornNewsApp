@@ -82,6 +82,12 @@ class ArticleTableViewCell: UITableViewCell {
         titleLabel.text = article.title
         publishedAtLabel.text = article.publishedAt
         
+        if let date = article.publishedDate {
+            publishedAtLabel.text = date.shortDateDescription
+        } else {
+            publishedAtLabel.text = article.publishedAt
+        }
+        
         if let author = article.author {
             authorLabel.text = "Author: \(author)"
             authorLabel.isHidden = false

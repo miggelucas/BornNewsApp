@@ -19,6 +19,12 @@ struct Article: Codable {
     
     var imageData: Data?
     
+    var publishedDate: Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        return formatter.date(from: self.publishedAt)
+    }
 }
 
 

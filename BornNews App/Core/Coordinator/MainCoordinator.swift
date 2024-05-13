@@ -31,6 +31,7 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: MainViewCoordinatorDelegate {
     func didSelectArticle(_ article: Article) {
+        
         let viewModel = ArticleDetailViewModel(article: article)
         let vc = ArticleDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)

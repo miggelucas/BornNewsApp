@@ -36,8 +36,7 @@ class ArticleDetailViewModel {
             let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
             
             return data
-    
-            
+
         } catch {
             print("Failed to download image")
             return nil

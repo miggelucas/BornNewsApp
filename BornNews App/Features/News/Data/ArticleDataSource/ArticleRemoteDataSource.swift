@@ -38,7 +38,7 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
         
 
         baseComponent?.queryItems = [
-            URLQueryItem(name: "country", value: "pt"),
+            URLQueryItem(name: "country", value: "us"),
             URLQueryItem(name: "apiKey", value: API_KEY)
         ]
         

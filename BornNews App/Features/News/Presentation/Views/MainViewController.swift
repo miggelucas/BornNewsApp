@@ -48,7 +48,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupNavigationController()
         setupViews()
         setupConstraints()
         
@@ -56,7 +55,7 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        setupNavigationController()
         viewModel.viewDidAppear()
     }
     
