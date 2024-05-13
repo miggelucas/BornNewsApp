@@ -9,29 +9,43 @@ import UIKit
 
 protocol ArticleDetailComponent {
     var view: UIView { get }
+    
+    func configure(with article: Article)
 }
 
 
 class ArticleHeaderViewComponent: ArticleDetailComponent {
-    let view: UIView
+    var view: UIView = UIView()
     
-    init(title: String, author: String?, publishedAt: String) {
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var authorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.italicSystemFont(ofSize: 16)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    
+    init() {
+        setupView()
+    }
+    
+    func setupView() {
         let containerView = UIView()
-        
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.numberOfLines = 0
-        
-        let authorLabel = UILabel()
-        authorLabel.text = author
-        authorLabel.font = UIFont.italicSystemFont(ofSize: 16)
-        authorLabel.numberOfLines = 0
-        
-        let dateLabel = UILabel()
-        dateLabel.text = publishedAt
-        dateLabel.font = UIFont.systemFont(ofSize: 16)
-        dateLabel.numberOfLines = 0
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
         [titleLabel, authorLabel, dateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -53,12 +67,24 @@ class ArticleHeaderViewComponent: ArticleDetailComponent {
             dateLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         
+        
         self.view = containerView
     }
+    
+    func configure(with article: Article) {
+        titleLabel.text = article.title
+        authorLabel.text = article.author
+        dateLabel.text = article.publishedAt
+    }
+    
 }
 
 class ArticleContentViewComponent: ArticleDetailComponent {
-    let view: UIView = UIView()
+    let view: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var articleDescriptionLabel: UILabel = {
         let label = UILabel()
@@ -76,13 +102,13 @@ class ArticleContentViewComponent: ArticleDetailComponent {
         return label
     }()
     
-    init(descriptionArticle: String?, contentArticle: String?) {
-        
-        articleDescriptionLabel.text = descriptionArticle
-        articleContentLabel.text = contentArticle
-        
+    init() {
         setupView()
-        
+    }
+    
+    func configure(with article: Article) {
+        articleDescriptionLabel.text = article.description
+        articleContentLabel.text = article.content
     }
     
     func setupView() {
@@ -91,17 +117,15 @@ class ArticleContentViewComponent: ArticleDetailComponent {
         
         NSLayoutConstraint.activate([
             articleDescriptionLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            articleDescriptionLabel.bottomAnchor.constraint(equalTo: articleContentLabel.topAnchor, constant: 20),
-            articleDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            articleDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            articleDescriptionLabel.bottomAnchor.constraint(equalTo: articleContentLabel.topAnchor, constant: -20),
+            articleDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            articleDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             articleContentLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            articleContentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            articleContentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-            
+            articleContentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            articleContentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    
 }
 
 
@@ -113,19 +137,16 @@ class ArticleDetailViewController: UIViewController {
         return scrollView
     }()
     
-    private lazy var headerView: ArticleDetailComponent = ArticleHeaderViewComponent(
-        title: viewModel.article.title,
-        author: viewModel.article.author,
-        publishedAt: viewModel.article.publishedAt)
+    private lazy var headerView: ArticleHeaderViewComponent = ArticleHeaderViewComponent()
     
     private lazy var articleImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private lazy var contentView: ArticleDetailComponent = ArticleContentViewComponent(descriptionArticle: viewModel.article.description, contentArticle: viewModel.article.content)
+    private lazy var contentView: ArticleDetailComponent = ArticleContentViewComponent()
     
     let viewModel: ArticleDetailViewModel
     
@@ -148,41 +169,45 @@ class ArticleDetailViewController: UIViewController {
     }
     
     private func setupContent() {
-//        self.articleDescriptionLabel.text = viewModel.article.description
-//        self.articleContentLabel.text = viewModel.article.content
+        headerView.configure(with: viewModel.article)
+        contentView.configure(with: viewModel.article)
     }
     
     func setupView() {
         view.addSubview(scrollView)
         
         scrollView.addSubview(headerView.view)
-//        scrollView.addSubview(articleImageView)
-//        scrollView.addSubview(contentView.view)
-
+        scrollView.addSubview(articleImageView)
+        scrollView.addSubview(contentView.view)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            headerView.view.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
-            headerView.view.bottomAnchor.constraint(equalTo: scrollView.topAnchor),
-            headerView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-            headerView.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-            
-            
-//            articleImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-//            articleImageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-//            articleImageView.heightAnchor.constraint(equalToConstant: 200),
-//            
-//            contentView.view.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 20),
-//            contentView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-//            contentView.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-//            contentView.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20)
-        ])
+                
+                scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                
+                
+                headerView.view.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
+                headerView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+                headerView.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+                headerView.view.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -40),
+                
+                // Constraints for articleImageView
+                articleImageView.topAnchor.constraint(equalTo: headerView.view.bottomAnchor, constant: 20),
+                articleImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+                articleImageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+                articleImageView.heightAnchor.constraint(equalToConstant: 200),
+                articleImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -40), // Ajuste conforme necessário
+                
+                contentView.view.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 20),
+                contentView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+                contentView.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+                contentView.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
+                contentView.view.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -40)
+                
+            ])
     }
-    
 }
 
 extension ArticleDetailViewController: ArticleDetailViewModelDelegate {
