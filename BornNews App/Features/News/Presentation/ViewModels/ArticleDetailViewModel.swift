@@ -18,7 +18,7 @@ class ArticleDetailViewModel {
     
     weak var delegate: ArticleDetailViewModelDelegate?
     
-    init(article: Article = Article.getSampleArticles().first!) {
+    init(article: Article = Article.getSample()) {
         self.article = article
     
     }

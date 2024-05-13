@@ -25,7 +25,7 @@ class ArticleDetailViewController: UIViewController {
     
     private lazy var articleImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -90,7 +90,7 @@ class ArticleDetailViewController: UIViewController {
                 articleImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
                 articleImageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
                 articleImageView.heightAnchor.constraint(equalToConstant: 200),
-                articleImageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40), // Ajuste conforme necessário
+
                 
                 contentView.view.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 20),
                 contentView.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),

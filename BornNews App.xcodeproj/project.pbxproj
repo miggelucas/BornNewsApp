@@ -132,6 +132,7 @@
 		0C124AE42BF03A3A007FC28D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0C55BE7A2BF2791000DEE9FD /* Components */,
 				0C124AE62BF03A70007FC28D /* MainViewController.swift */,
 				0C124AFD2BF07E44007FC28D /* ArticleTableViewCell.swift */,
 				0C55BE742BF1BB6500DEE9FD /* ArticleDetailViewController.swift */,
@@ -329,7 +330,6 @@
 		0C73C9342BEFDC27001355D7 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				0C55BE7A2BF2791000DEE9FD /* Components */,
 				0C124AE52BF03A44007FC28D /* ViewModels */,
 				0C124AE42BF03A3A007FC28D /* Views */,
 			);
