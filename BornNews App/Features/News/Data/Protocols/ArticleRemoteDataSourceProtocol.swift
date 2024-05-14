@@ -8,5 +8,8 @@
 import Foundation
 
 protocol ArticleRemoteDataSourceProtocol {
-    func fetchHeadlineArticles() async throws -> [Article]
+    
+    func fetchHeadlineArticles(country: CountryOption,
+                               category: CategoryOption,
+                               page: Int) async throws -> [Article]
 }

@@ -8,7 +8,8 @@
 import Foundation
 
 protocol MainViewModelDelegate: AnyObject {
-    func didChangeState()
+    func shouldPresentContentState()
+    func shouldReloadTable()
 }
 
 protocol MainViewCoordinatorDelegate: AnyObject {
@@ -18,7 +19,7 @@ protocol MainViewCoordinatorDelegate: AnyObject {
 class MainViewModel {
     
     enum State {
-        case loading, content
+        case launching, content, fetching
     }
     
     let articleRepository: ArticleRepositoryProtocol
@@ -26,10 +27,18 @@ class MainViewModel {
     weak var coordinator: MainViewCoordinatorDelegate?
     weak var delegate: MainViewModelDelegate?
     
+    var canLoadMoreArticles: Bool = true
+    var articlePage: Int = 1
+    
     var articles: [Article] = []
-    var state: State = .loading {
+    var countryOption: CountryOption = .unitedStates
+    var categoryOption: CategoryOption = .general
+    
+    var state: State = .launching { 
         didSet {
-            delegate?.didChangeState()
+             if state != .launching {
+                delegate?.shouldPresentContentState()
+            }
         }
     }
     
@@ -40,34 +49,54 @@ class MainViewModel {
     }
     
     private func loadArticles() {
-        self.state = .loading
-        
         Task {
-            let result = await articleRepository.getHeadlineArticles()
-            
+            let result = await articleRepository.getHeadlineArticles(country: countryOption,
+                                                                     category: categoryOption,
+                                                                     page: articlePage)
             switch result {
-            case .success(let data):
-                self.articles = data
-               
-            case .failure:
-                print("ERROR: viewModel Failed to get Articles")
-        
+            case .success(let fetchedArticles):
+                self.articles.append(contentsOf: fetchedArticles)
+                delegate?.shouldReloadTable()
+                state = .content
+                
+            case .failure(let error):
+                
+                delegate?.shouldPresentContentState()
+                
+                switch error {
+                case .noMoreData:
+                    canLoadMoreArticles = false
+                    state = .content
+                default:
+                    state = .content
+                    
+                }
             }
-            
-            self.state = .content
         }
     }
     
-    public func viewDidAppear() {
+    public func viewDidLoad() {
         loadArticles()
     }
     
-    public func refreshTableView() {
+    public func didRefreshTableView() {
+        articlePage = 1
+        state = .fetching
         loadArticles()
     }
     
     public func didSelectRow(at index: IndexPath) {
         let article = articles[index.row]
         coordinator?.didSelectArticle(article)
+    }
+    
+    public func didScrollToTheEnd() {
+        
+        guard state == .content else { return }
+        guard canLoadMoreArticles else { return }
+        
+        articlePage += 1
+        state = .fetching
+        loadArticles()
     }
 }

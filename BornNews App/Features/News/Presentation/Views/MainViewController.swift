@@ -50,13 +50,13 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setupConstraints()
+        viewModel.viewDidLoad()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupNavigationController()
-        viewModel.viewDidAppear()
     }
     
     // MARK: - Setup
@@ -107,22 +107,25 @@ class MainViewController: UIViewController {
     }
     
     @objc private func refreshControlAction() {
-        viewModel.refreshTableView()
+        viewModel.didRefreshTableView()
     }
 }
 
 // MARK: - MainViewModelDelegate
 
 extension MainViewController: MainViewModelDelegate {
-    func didChangeState() {
-        if viewModel.state == .content {
-            DispatchQueue.main.async {
-                self.refreshControl.endRefreshing()
-                self.tableView.isHidden = false
-                self.loadingView.isHidden = true
-                self.loadingView.stopAnimating()
-                self.tableView.reloadData()
-            }
+    func shouldPresentContentState() {
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+            self.tableView.isHidden = false
+            self.loadingView.isHidden = true
+            self.loadingView.stopAnimating()
+        }
+    }
+    
+    func shouldReloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }
@@ -154,6 +157,16 @@ extension MainViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         viewModel.didSelectRow(at: indexPath)
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            viewModel.didScrollToTheEnd()
+        }
     }
 }
 

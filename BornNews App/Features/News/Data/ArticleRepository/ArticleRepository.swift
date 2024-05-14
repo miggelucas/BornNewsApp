@@ -15,14 +15,18 @@ class ArticleRepository: ArticleRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
-    
-    func getHeadlineArticles() async -> Result<[Article], RemoteDataSourceError> {
+    func getHeadlineArticles(country: CountryOption = .unitedStates,
+                             category: CategoryOption = .general,
+                             page: Int) async -> Result<[Article], RemoteDataSourceError> {
         do {
-            let result = try await remoteDataSource.fetchHeadlineArticles()
+            let result = try await remoteDataSource.fetchHeadlineArticles(country: country,
+                                                                          category: category,
+                                                                          page: page)
             return .success(result)
+        } catch let error as RemoteDataSourceError {
+            return .failure(error)
         } catch {
-            print("ERROR: Failed to Fetch from Remote Datasource")
-            return .failure(RemoteDataSourceError.failedToFetch)
+            return .failure(.failedToFetch)
         }
     }
 }

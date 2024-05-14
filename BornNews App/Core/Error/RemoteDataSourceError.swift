@@ -8,5 +8,5 @@
 import Foundation
 
 enum RemoteDataSourceError: Error {
-    case serverError, badRequest, failedToFetch
+    case serverError, badRequest, failedToFetch, noMoreData
 }

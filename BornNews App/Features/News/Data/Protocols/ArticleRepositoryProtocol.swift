@@ -8,7 +8,10 @@
 import Foundation
 
 protocol ArticleRepositoryProtocol {
-    func getHeadlineArticles() async -> Result<[Article], RemoteDataSourceError>
+    
+    func getHeadlineArticles(country: CountryOption,
+                             category: CategoryOption,
+                             page: Int) async -> Result<[Article], RemoteDataSourceError>
     
 }
 

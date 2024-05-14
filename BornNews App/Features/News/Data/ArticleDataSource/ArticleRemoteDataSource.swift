@@ -18,11 +18,11 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
     
     let API_KEY: String = "f83edef801734100bac6b68e410e4364"
     
-    enum EndPointsAPI {
+    enum EndPointsOption {
         case headlines
         case everything
         
-        var value: String {
+        var code: String {
             switch self {
             case .everything:
                 return "https://newsapi.org/v2/everything"
@@ -33,13 +33,17 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
         }
     }
     
-    func fetchHeadlineArticles() async throws -> [Article] {
-        var baseComponent = URLComponents(string: EndPointsAPI.headlines.value)
+    func fetchHeadlineArticles(country: CountryOption = .unitedStates,
+                               category: CategoryOption = .general,
+                               page: Int) async throws -> [Article] {
         
-
+        var baseComponent = URLComponents(string: EndPointsOption.headlines.code)
+        
         baseComponent?.queryItems = [
-            URLQueryItem(name: "country", value: "us"),
-            URLQueryItem(name: "apiKey", value: API_KEY)
+            URLQueryItem(name: ApiKey.key, value: ApiKey.value),
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: country.key, value: country.value),
+            URLQueryItem(name: category.key, value: category.value),
         ]
         
         guard let url = baseComponent?.url else {
@@ -53,7 +57,8 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
             
             let fetchedData = try JSONDecoder().decode(ArticleResponse.self, from: data)
             
-            guard fetchedData.status == "ok" else { throw RemoteDataSourceError.serverError}
+            guard fetchedData.status == "ok" else { throw RemoteDataSourceError.serverError }
+            guard !fetchedData.articles.isEmpty else { throw RemoteDataSourceError.noMoreData }
             
             return fetchedData.articles
             
@@ -61,4 +66,5 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
             throw RemoteDataSourceError.failedToFetch
         }
     }
+    
 }
