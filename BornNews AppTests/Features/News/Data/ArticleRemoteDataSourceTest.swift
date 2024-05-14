@@ -8,37 +8,6 @@
 import XCTest
 @testable import BornNews_App
 
-class NetworkSessionMock: NetworkSession {
-    
-    let sampleArticleData = """
-    {
-        "author": "John Doe",
-        "title": "Sample Article Title",
-        "description": "This is a sample article description.",
-        "url": "https://www.example.com/sample-article",
-        "urlToImage": "https://www.example.com/sample-image.jpg",
-        "publishedAt": "2024-05-12T10:00:00Z",
-        "content": "This is a sample article content."
-    }
-    """.data(using: .utf8)!
-    
-    enum NetworkSessionError: Error {
-        case fail
-    }
-    
-    var shouldThrowError: Bool = false
-    
-    var data: Data?
-    var response: URLResponse?
-    
-    func data(for request: URLRequest, delegate: (any URLSessionTaskDelegate)? = nil) async throws -> (Data, URLResponse) {
-        if !shouldThrowError {
-            return (Data(), URLResponse())
-        } else {
-            throw NetworkSessionError.fail
-        }
-    }
-}
 
 final class ArticleRemoteDataSourceTests: XCTestCase {
     
@@ -57,14 +26,69 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testFetchHeadlineArticles() {
-//        // Given
-//        let expectation = XCTestExpectation(description: "Fetch headline articles")
-//        
-//        
-//        
-//        
-//        // Wait for expectation
-//        wait(for: [expectation], timeout: 5.0)
-//    }
+    func testCreateHeadlineUrlRequestDoNotThrowsErrorWhenCalledWithInfoOptions() {
+        let country: CountryOption = .unitedStates
+        let category: CategoryOption = .general
+        let page: Int = 0
+        
+        XCTAssertThrowsError(try dataSource.createHeadlineUrlRequest(country: country, category: category, page: page))
+    }
+    
+    func testCreateHeadlineUrlRequestThrowsErrorWhenCalledWithInvalidParams() {
+        let country: CountryOption = .unitedStates
+        let category: CategoryOption = .general
+        let page: Int = 1
+        
+        XCTAssertNoThrow(try dataSource.createHeadlineUrlRequest(country: country, category: category, page: page))
+    }
+    
+    func testCreateHeadlineUrlRequestReturnsExpectedUrlString() {
+        let country: CountryOption = .unitedStates
+        let category: CategoryOption = .general
+        let page: Int = 1
+        
+        do {
+            
+            let request = try dataSource.createHeadlineUrlRequest(country: country, category: category, page: page)
+            
+            let expectedUrl = "https://newsapi.org/v2/top-headlines?\(ApiKey.key)=\(ApiKey.value)&\(country.key)=\(country.value)&\(category.key)=\(category.value)&page=\(page)"
+            let url = request.url?.absoluteString
+            
+            XCTAssertEqual(expectedUrl, url)
+            
+        } catch let error {
+            XCTAssertNotNil(error)
+        }
+    }
+    
+
+    func testFetchHeadlineArticlesThrowsErrorWhenCalledWithInvalidParams() async {
+        let country: CountryOption = .unitedStates
+        let category: CategoryOption = .general
+        let page: Int = -1
+        
+        do {
+            _ = try await dataSource.fetchHeadlineArticles(country: country, category: category, page: page)
+            
+            XCTFail("Should throw error on this condition")
+        } catch let error {
+            XCTAssertNotNil(error)
+        }
+    }
+    
+    func testFetchHeadlineArticlesReturnsArticlesWithoutErrorWithValidParams() async {
+        networkSessionMock.shouldThrowError = false
+        let country: CountryOption = .unitedStates
+        let category: CategoryOption = .general
+        let page: Int = 1
+        
+        do {
+            let articles = try await dataSource.fetchHeadlineArticles(country: country, category: category, page: page)
+            
+            XCTAssertFalse(articles.isEmpty)
+        } catch let error {
+            XCTAssertNil(error)
+        }
+    }
+    
 }

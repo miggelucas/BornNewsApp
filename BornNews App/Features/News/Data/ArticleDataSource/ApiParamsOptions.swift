@@ -7,6 +7,22 @@
 
 import Foundation
 
+enum EndPointsOption {
+    case headlines
+    case everything
+    
+    var code: String {
+        switch self {
+        case .everything:
+            return "https://newsapi.org/v2/everything"
+            
+        case .headlines:
+            return "https://newsapi.org/v2/top-headlines"
+        }
+    }
+}
+
+
 enum ApiKey {
     static var key: String {
         return "apiKey"
