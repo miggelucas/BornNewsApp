@@ -48,7 +48,6 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
         let page: Int = 1
         
         do {
-            
             let request = try dataSource.createHeadlineUrlRequest(country: country, category: category, page: page)
             
             let expectedUrl = "https://newsapi.org/v2/top-headlines?\(ApiKey.key)=\(ApiKey.value)&\(country.key)=\(country.value)&\(category.key)=\(category.value)&page=\(page)"

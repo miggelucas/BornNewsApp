@@ -11,6 +11,11 @@ import UIKit
 struct Source: Codable {
     let id: String?
     let name: String
+    
+    init(id: String? = nil, name: String) {
+        self.id = id
+        self.name = name
+    }
 }
 
 struct Article: Codable {
@@ -30,6 +35,18 @@ struct Article: Codable {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         
         return formatter.date(from: self.publishedAt)
+    }
+    
+    init(source: Source, author: String? = nil, title: String, description: String? = nil, url: String, urlToImage: String? = nil, publishedAt: String, content: String? = nil, imageData: Data? = nil) {
+        self.source = source
+        self.author = author
+        self.title = title
+        self.description = description
+        self.url = url
+        self.urlToImage = urlToImage
+        self.publishedAt = publishedAt
+        self.content = content
+        self.imageData = imageData
     }
 }
 

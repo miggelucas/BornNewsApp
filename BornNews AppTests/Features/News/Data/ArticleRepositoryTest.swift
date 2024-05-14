@@ -45,28 +45,14 @@ final class ArticleRepositoryTest: XCTestCase {
     }
     
     
-//    func testGetHeadlineArticlesShouldCallFetchFromDatasource() async {
-//        articleDataSourceMock.didCallFetchHeadlineArticles = false
-//        
-//        _ = await repository.getHeadlineArticles()
-//        
-//        XCTAssertTrue(articleDataSourceMock.didCallFetchHeadlineArticles)
-//        
-//    }
-//    
-//    func testGetHeadlineArticlesShouldReturnArticlesArrayIfFetchSuccessful() async {
-//        articleDataSourceMock.shouldFetchHeadlineArticlesBeSuccessful = true
-//        
-//        let result = await repository.getHeadlineArticles()
-//        
-//        XCTAssertNoThrow(try result.get())
-//    }
-//    
-//    func testGetHeadlineArticlesShouldReturnErrorResultIfFetchFails() async {
-//        articleDataSourceMock.shouldFetchHeadlineArticlesBeSuccessful = false
-//        
-//        let result = await repository.getHeadlineArticles()
-//        
-//        XCTAssertThrowsError(try result.get())
-//    }
+    func testRemoveInvalidArticlesFiltersOnlyArticlesNamedRemoved() {
+        let article1 = Article(source: Source(name: "test"),  title: "Awesome Title", url: "google.com", publishedAt: "today")
+        let article2 = Article(source: Source(name: "test"),  title: "[Removed]", url: "google.com", publishedAt: "someday")
+        let article3 = Article(source: Source(name: "test"),  title: "Great Article", url: "google.com", publishedAt: "12/05/99")
+        
+        let filteredArticles = repository.removeInvalidArticles(for: [article1, article2, article3])
+        
+        XCTAssertFalse(filteredArticles.contains(where: {$0.title == article2.title}))
+        XCTAssertEqual(filteredArticles.count, 2)
+    }
 }

@@ -32,7 +32,6 @@ class MainViewModel {
     
     var articles: [Article] = []
     var countryOption: CountryOption = .unitedStates
-    var categoryOption: CategoryOption = .general
     
     var state: State = .launching { 
         didSet {
@@ -50,9 +49,7 @@ class MainViewModel {
     
     private func loadArticles() {
         Task {
-            let result = await articleRepository.getHeadlineArticles(country: countryOption,
-                                                                     category: categoryOption,
-                                                                     page: articlePage)
+            let result = await articleRepository.getHeadlineGeneralArticles(country: countryOption, page: articlePage)
             switch result {
             case .success(let fetchedArticles):
                 self.articles.append(contentsOf: fetchedArticles)
