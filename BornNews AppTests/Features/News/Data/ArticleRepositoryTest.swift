@@ -9,16 +9,16 @@ import XCTest
 @testable import BornNews_App
 
 class RemoteArticleDataSourceMock: ArticleRemoteDataSourceProtocol {
-    func fetchHeadlineArticles(country: BornNews_App.CountryOption, category: BornNews_App.CategoryOption, page: Int) async throws -> [Article] {
-        return []
-    }
     
     var shouldFetchHeadlineArticlesBeSuccessful: Bool = true
     var didCallFetchHeadlineArticles: Bool = false
     
-    func fetchHeadlineArticles() async throws -> [Article] {
+    var didCallFetchHeadlineForCategory: CategoryOption?
+    
+    func fetchHeadlineArticles(country: CountryOption, category: CategoryOption, page: Int) async throws -> [Article] {
         
         didCallFetchHeadlineArticles = true
+        didCallFetchHeadlineForCategory = category
 
         if shouldFetchHeadlineArticlesBeSuccessful {
             return []
@@ -55,4 +55,98 @@ final class ArticleRepositoryTest: XCTestCase {
         XCTAssertFalse(filteredArticles.contains(where: {$0.title == article2.title}))
         XCTAssertEqual(filteredArticles.count, 2)
     }
+    
+    func testGetHeadlineArticlesReturnSuccessWhenSuccessfulCallWithDatasource() async {
+        
+        articleDataSourceMock.shouldFetchHeadlineArticlesBeSuccessful = true
+        
+        let result = await repository.getHeadlineHealthArticles(page: 1)
+        
+        XCTAssertNoThrow(try result.get())
+    }
+    
+    func testGetHeadlineArticlesReturnFailureWhenCallWithDatasourceFails() async {
+        
+        articleDataSourceMock.shouldFetchHeadlineArticlesBeSuccessful = true
+        
+        let result = await repository.getHeadlineHealthArticles(page: 1)
+    
+        switch result {
+        case .success(let success):
+            XCTAssert(true)
+        case .failure(let failure):
+            XCTFail("Should not return failure on this condition")
+        }
+    }
+
+    
+    func testGetGeneralHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .general
+        
+        _ = await repository.getHeadlineGeneralArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+        
+    }
+    
+    func testGetBusinessHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .business
+        
+        _ = await repository.getHeadlineBusinessArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+        
+    }
+    
+    func testGetEntertainmentHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .entertainment
+        
+        _ = await repository.getHeadlineEntertainmentArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+        
+    }
+    
+    func testGetHealthHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .health
+        
+        _ = await repository.getHeadlineHealthArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+    }
+    
+    func testGetScienceHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .science
+        
+        _ = await repository.getHeadlineScienceArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+        
+    }
+    
+    func testGetSportsHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .sports
+        
+        _ = await repository.getHeadlineSportsArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+        
+    }
+    
+    func testGetTechnologyHeadlineArticleCallsDatasourceWithExpectedCategory() async {
+        
+        let category: CategoryOption = .technology
+        
+        _ = await repository.getHeadlineTechnologyArticles(page: 1)
+        
+        XCTAssertEqual(category, articleDataSourceMock.didCallFetchHeadlineForCategory)
+        
+    }
+    
 }
