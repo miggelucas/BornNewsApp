@@ -22,19 +22,30 @@ enum EndPointsOption {
     }
 }
 
+protocol ApiParamOption {
+    var key: String { get }
+    
+    var value: String { get }
+}
 
-enum ApiKey {
-    static var key: String {
+enum ApiKey: ApiParamOption {
+    case personal, ufpe
+    
+    var key: String {
         return "apiKey"
     }
     
-    static var value: String {
-//        return "f83edef801734100bac6b68e410e4364" // personal
-        return "b3ae1fef9e1c4161a5718b525911973a" // ufpe
+    var value: String {
+        switch self {
+        case .personal:
+            return "f83edef801734100bac6b68e410e4364"
+        case .ufpe:
+            return "b3ae1fef9e1c4161a5718b525911973a"
+        }
     }
 }
 
-enum CategoryOption: String {
+enum CategoryOption: String, ApiParamOption {
     case business, entertainment, general, health, science, sports, technology
     
     var key: String {
@@ -46,7 +57,7 @@ enum CategoryOption: String {
     }
 }
 
-enum CountryOption: String {
+enum CountryOption: String, ApiParamOption {
     case unitedStates, brazil, argentina, canada, france, japan, china
     
     var name: String {
@@ -89,5 +100,43 @@ enum CountryOption: String {
         case .china:
             return "ch"
         }
+    }
+}
+
+enum LanguageOption: String, ApiParamOption {
+    case english, spanish, portuguese, french
+    
+    var name: String {
+        return self.rawValue
+    }
+    
+    var key: String {
+        return "language"
+    }
+    
+    var value: String {
+        switch self {
+        case .english:
+            return "en"
+        case .spanish:
+            return "es"
+        case .portuguese:
+            return "pt"
+        case .french:
+            return "fc"
+        }
+    }
+}
+
+struct QueryOption: ApiParamOption {
+    
+    let queryFor: String
+    
+    var key: String {
+        return "q"
+    }
+    
+    var value: String {
+        return queryFor
     }
 }

@@ -26,6 +26,10 @@ class RemoteArticleDataSourceMock: ArticleRemoteDataSourceProtocol {
             throw RemoteDataSourceError.failedToFetch
         }
     }
+    
+    func fetchSearchArticles(query: BornNews_App.QueryOption, language: LanguageOption, page: Int) async throws -> [ArticleModel] {
+        return []
+    }
 }
 
 

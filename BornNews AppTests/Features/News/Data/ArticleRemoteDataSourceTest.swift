@@ -26,7 +26,7 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
         super.tearDown()
     }
     
-    func testCreateHeadlineUrlRequestDoNotThrowsErrorWhenCalledWithInfoOptions() {
+    func testCreateHeadlineUrlRequestThrowsErrorWhenCalledWithInvalidParams() {
         let country: CountryOption = .unitedStates
         let category: CategoryOption = .general
         let page: Int = 0
@@ -34,7 +34,7 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
         XCTAssertThrowsError(try dataSource.createHeadlineUrlRequest(country: country, category: category, page: page))
     }
     
-    func testCreateHeadlineUrlRequestThrowsErrorWhenCalledWithInvalidParams() {
+    func testCreateHeadlineUrlRequestDoNotThrowsErrorWhenCalledWithInfoOptions() {
         let country: CountryOption = .unitedStates
         let category: CategoryOption = .general
         let page: Int = 1
@@ -43,6 +43,8 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
     }
     
     func testCreateHeadlineUrlRequestReturnsExpectedUrlString() {
+        let apiKey = dataSource.apiKey
+        
         let country: CountryOption = .unitedStates
         let category: CategoryOption = .general
         let page: Int = 1
@@ -50,7 +52,7 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
         do {
             let request = try dataSource.createHeadlineUrlRequest(country: country, category: category, page: page)
             
-            let expectedUrl = "https://newsapi.org/v2/top-headlines?\(ApiKey.key)=\(ApiKey.value)&\(country.key)=\(country.value)&\(category.key)=\(category.value)&page=\(page)"
+            let expectedUrl = "https://newsapi.org/v2/top-headlines?\(apiKey.key)=\(apiKey.value)&\(country.key)=\(country.value)&\(category.key)=\(category.value)&page=\(page)"
             let url = request.url?.absoluteString
             
             XCTAssertEqual(expectedUrl, url)
@@ -86,7 +88,81 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
             
             XCTAssertFalse(articles.isEmpty)
         } catch let error {
-            XCTAssertNil(error)
+            XCTFail("Should not have a erro to catch on this condition")
+        }
+    }
+    
+    func testCreateSearchArticleUrlRequestDoNotThrowsErrorWhenCalledWithInfoOptions() {
+        let query: QueryOption = QueryOption(queryFor: "Apple")
+        let language: LanguageOption = .english
+        let page: Int = 1
+        
+        XCTAssertNoThrow(try dataSource.createSearchUrlRequest(query: query, language: language, page: page))
+    }
+    
+    func testCreateSearchArticleUrlRequestThrowsErrorWhenCalledWithInvalidPageParam() {
+        let query: QueryOption = QueryOption(queryFor: "Apple")
+        let language: LanguageOption = .english
+        let page: Int = 0
+        
+        XCTAssertThrowsError(try dataSource.createSearchUrlRequest(query: query, language: language, page: page))
+    }
+    
+    func testCreateSearchArticleUrlRequestThrowsErrorWhenCalledWithInvalidQueryParam() {
+        let query: QueryOption = QueryOption(queryFor: "")
+        let language: LanguageOption = .english
+        let page: Int = 1
+        
+        XCTAssertThrowsError(try dataSource.createSearchUrlRequest(query: query, language: language, page: page))
+    }
+    
+    func testCreateSearchArticleUrlRequestReturnsExpectedUrlString() {
+        let apiKey = dataSource.apiKey
+        
+        let query: QueryOption = QueryOption(queryFor: "Apple")
+        let language: LanguageOption = .english
+        let page: Int = 1
+        
+        do {
+            let request = try dataSource.createSearchUrlRequest(query: query, language: language, page: page)
+            
+            let expectedUrl = "https://newsapi.org/v2/everything?\(apiKey.key)=\(apiKey.value)&\(language.key)=\(language.value)&\(query.key)=\(query.value)&page=\(page)"
+            let url = request.url?.absoluteString
+            
+            XCTAssertEqual(expectedUrl, url)
+            
+        } catch let error {
+            XCTFail("Should not have a erro to catch on this condition")
+        }
+    }
+    
+    func testFetchSearchArticlesThrowsErrorWhenCalledWithInvalidParams() async {
+        let query: QueryOption = QueryOption(queryFor: "Apple")
+        let language: LanguageOption = .english
+        let page: Int = -1
+
+        do {
+            _ = try await dataSource.fetchSearchArticles(query: query, language: language, page: page)
+            
+            XCTFail("Should throw error on this condition")
+        } catch let error {
+            XCTAssertNotNil(error)
+        }
+    }
+    
+    func testFetchSearchArticlesReturnsArticlesWithoutErrorWithValidParams() async {
+        networkSessionMock.shouldThrowError = false
+        
+        let query: QueryOption = QueryOption(queryFor: "Apple")
+        let language: LanguageOption = .english
+        let page: Int = 1
+        
+        do {
+            let articles = try await dataSource.fetchSearchArticles(query: query, language: language, page: page)
+            
+            XCTAssertFalse(articles.isEmpty)
+        } catch let error {
+            XCTFail("Should not throw error on this condition")
         }
     }
     
