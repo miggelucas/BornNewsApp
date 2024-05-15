@@ -31,7 +31,7 @@ class MainCoordinator: Coordinator {
     }
 }
 
-extension MainCoordinator: MainViewCoordinatorDelegate {
+extension MainCoordinator: MainViewModelCoordinatorDelegate {
     func didSelectArticle(_ article: Article) {
         
         let viewModel = ArticleDetailViewModel(article: article, coordinator: self)

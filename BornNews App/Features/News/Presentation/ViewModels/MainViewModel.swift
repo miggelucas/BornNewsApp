@@ -12,7 +12,7 @@ protocol MainViewModelDelegate: AnyObject {
     func shouldReloadTable()
 }
 
-protocol MainViewCoordinatorDelegate: AnyObject {
+protocol MainViewModelCoordinatorDelegate: AnyObject {
     func didSelectArticle(_ article: Article)
 }
 
@@ -24,7 +24,7 @@ class MainViewModel {
     
     let articleRepository: ArticleRepositoryProtocol
     
-    weak var coordinator: MainViewCoordinatorDelegate?
+    weak var coordinator: MainViewModelCoordinatorDelegate?
     weak var delegate: MainViewModelDelegate?
     
     var canLoadMoreArticles: Bool = true
@@ -42,7 +42,7 @@ class MainViewModel {
     }
     
     init(articleRepository: ArticleRepositoryProtocol = ArticleRepository(),
-         coordinator: MainViewCoordinatorDelegate? = nil) {
+         coordinator: MainViewModelCoordinatorDelegate? = nil) {
         self.articleRepository = articleRepository
         self.coordinator = coordinator
     }
