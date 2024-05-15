@@ -101,8 +101,8 @@ class HeaderComponentView: ArticleDetailComponentView {
     
     func configure(with article: Article) {
         titleLabel.text = article.title
-        authorLabel.text = "Author: \(article.author ?? "unknown")"
-        sourceLabel.text = "Source: \(article.source.name)"
+        authorLabel.text = article.authorName
+        sourceLabel.text = article.sourceName
         
         if let date = article.publishedDate {
             dateLabel.text = date.DateDescription

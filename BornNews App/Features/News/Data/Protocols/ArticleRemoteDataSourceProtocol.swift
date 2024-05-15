@@ -11,5 +11,5 @@ protocol ArticleRemoteDataSourceProtocol {
     
     func fetchHeadlineArticles(country: CountryOption,
                                category: CategoryOption,
-                               page: Int) async throws -> [Article]
+                               page: Int) async throws -> [ArticleModel]
 }

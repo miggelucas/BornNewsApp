@@ -23,7 +23,7 @@ class ArticleDetailViewModel {
     weak var delegate: ArticleDetailViewModelDelegate?
     weak var coordinator: ArticleDetailViewModelCoordinator?
     
-    init(article: Article = Article.getSample(), coordinator: ArticleDetailViewModelCoordinator? = nil) {
+    init(article: Article = ArticleModel.getSample(), coordinator: ArticleDetailViewModelCoordinator? = nil) {
         self.article = article
         self.coordinator = coordinator
     

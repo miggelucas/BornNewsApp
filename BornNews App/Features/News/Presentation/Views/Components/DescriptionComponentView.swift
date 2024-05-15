@@ -51,7 +51,7 @@ class DescriptionComponentView: ArticleDetailComponentView {
      }
      
      func configure(with article: Article) {
-         articleDescriptionLabel.text = article.description
+         articleDescriptionLabel.text = article.summary
          articleContentLabel.text = article.content
          
          if let content = article.content, content.count > 200 {

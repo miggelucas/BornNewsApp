@@ -80,7 +80,7 @@ class ArticleTableViewCell: UITableViewCell {
     
     func configure(with article: Article) {
         titleLabel.text = article.title
-        publishedAtLabel.text = article.publishedAt
+        authorLabel.text = article.authorName
         
         if let date = article.publishedDate {
             publishedAtLabel.text = date.shortDateDescription
@@ -88,11 +88,6 @@ class ArticleTableViewCell: UITableViewCell {
             publishedAtLabel.text = article.publishedAt
         }
         
-        if let author = article.author {
-            authorLabel.text = "Author: \(author)"
-            authorLabel.isHidden = false
-        } else {
-            authorLabel.isHidden = true
-        }
+     
     }
 }

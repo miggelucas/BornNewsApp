@@ -8,18 +8,9 @@
 import Foundation
 import UIKit
 
-struct Source: Codable {
-    let id: String?
-    let name: String
-    
-    init(id: String? = nil, name: String) {
-        self.id = id
-        self.name = name
-    }
-}
 
-struct Article: Codable {
-    let source: Source
+struct ArticleModel: Codable {
+    var source: SourceModel
     let author: String?
     let title: String
     let description: String?
@@ -30,14 +21,7 @@ struct Article: Codable {
     
     var imageData: Data?
     
-    var publishedDate: Date? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        
-        return formatter.date(from: self.publishedAt)
-    }
-    
-    init(source: Source, author: String? = nil, title: String, description: String? = nil, url: String, urlToImage: String? = nil, publishedAt: String, content: String? = nil, imageData: Data? = nil) {
+    init(source: SourceModel, author: String? = nil, title: String, description: String? = nil, url: String, urlToImage: String? = nil, publishedAt: String, content: String? = nil, imageData: Data? = nil) {
         self.source = source
         self.author = author
         self.title = title
@@ -50,13 +34,35 @@ struct Article: Codable {
     }
 }
 
+extension ArticleModel: Article {
+    
+    var sourceName: String {
+        self.source.name
+    }
+    
+    var authorName: String {
+        self.author ?? "Unknown author"
+    }
+    
+    var summary: String {
+        self.description ?? "Check out the link to know more about ir"
+    }
+    
+    var publishedDate: Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        return formatter.date(from: self.publishedAt)
+    }
+}
+
 
 // MARK: Populate
-extension Article {
-    static func getSample() -> Article {
+extension ArticleModel {
+    static func getSample() -> ArticleModel {
         return
-            Article(
-                source: Source(id: nil, name: "Google News"), author: "Joel Khalili",
+            ArticleModel(
+                source: SourceModel(id: nil, name: "Google News"), author: "Joel Khalili",
                 title: "FTX Creditors Say Payout Deal Is 'an Insult'—and Plan to Revolt",
                 description: "FTX has a plan to repay its former crypto customers more than the billions of dollars they lost in the latest bankruptcy proposal. But some will reject it anyway.",
                 url: "https://www.wired.com/story/ftx-creditors-crypto-payout-rejection/",

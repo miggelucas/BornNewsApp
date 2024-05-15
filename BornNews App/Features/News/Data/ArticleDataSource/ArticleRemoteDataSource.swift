@@ -17,7 +17,7 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
     }
     
     let API_KEY: String = "f83edef801734100bac6b68e410e4364"
-
+    
     func createHeadlineUrlRequest(
         country: CountryOption = .unitedStates,
         category: CategoryOption = .general,
@@ -37,11 +37,11 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
             guard let url = baseComponent?.url else { throw RemoteDataSourceError.badRequest }
             
             return URLRequest(url: url)
-        }
+    }
     
     func fetchHeadlineArticles(country: CountryOption = .unitedStates,
                                category: CategoryOption = .general,
-                               page: Int) async throws -> [Article] {
+                               page: Int) async throws -> [ArticleModel] {
         
         let request = try createHeadlineUrlRequest(country: country, category: category, page: page)
         
@@ -56,8 +56,9 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
             guard !fetchedData.articles.isEmpty else { throw RemoteDataSourceError.noMoreData }
             return fetchedData.articles
             
-        } catch let error {
+        } catch _ {
             throw RemoteDataSourceError.failedToFetch
         }
     }
+
 }

@@ -15,11 +15,11 @@ class ArticleRepository: ArticleRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
-    func removeInvalidArticles(for articles: [Article]) -> [Article] {
+    func removeInvalidArticles(for articles: [ArticleModel]) -> [ArticleModel] {
         return articles.filter { $0.title != "[Removed]" }
     }
     
-    func fetchHeadlineArticles(country: CountryOption, category: CategoryOption, page: Int) async throws -> [Article] {
+    func fetchHeadlineArticles(country: CountryOption, category: CategoryOption, page: Int) async throws -> [ArticleModel] {
         return try await remoteDataSource.fetchHeadlineArticles(country: country, category: category, page: page)
     }
     

@@ -15,7 +15,7 @@ class RemoteArticleDataSourceMock: ArticleRemoteDataSourceProtocol {
     
     var didCallFetchHeadlineForCategory: CategoryOption?
     
-    func fetchHeadlineArticles(country: CountryOption, category: CategoryOption, page: Int) async throws -> [Article] {
+    func fetchHeadlineArticles(country: CountryOption, category: CategoryOption, page: Int) async throws -> [ArticleModel] {
         
         didCallFetchHeadlineArticles = true
         didCallFetchHeadlineForCategory = category
@@ -46,9 +46,9 @@ final class ArticleRepositoryTest: XCTestCase {
     
     
     func testRemoveInvalidArticlesFiltersOnlyArticlesNamedRemoved() {
-        let article1 = Article(source: Source(name: "test"),  title: "Awesome Title", url: "google.com", publishedAt: "today")
-        let article2 = Article(source: Source(name: "test"),  title: "[Removed]", url: "google.com", publishedAt: "someday")
-        let article3 = Article(source: Source(name: "test"),  title: "Great Article", url: "google.com", publishedAt: "12/05/99")
+        let article1 = ArticleModel(source: SourceModel(name: "test"),  title: "Awesome Title", url: "google.com", publishedAt: "today")
+        let article2 = ArticleModel(source: SourceModel(name: "test"),  title: "[Removed]", url: "google.com", publishedAt: "someday")
+        let article3 = ArticleModel(source: SourceModel(name: "test"),  title: "Great Article", url: "google.com", publishedAt: "12/05/99")
         
         let filteredArticles = repository.removeInvalidArticles(for: [article1, article2, article3])
         
@@ -72,9 +72,9 @@ final class ArticleRepositoryTest: XCTestCase {
         let result = await repository.getHeadlineHealthArticles(page: 1)
     
         switch result {
-        case .success(let success):
+        case .success(_):
             XCTAssert(true)
-        case .failure(let failure):
+        case .failure(_):
             XCTFail("Should not return failure on this condition")
         }
     }
