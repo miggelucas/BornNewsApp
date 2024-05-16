@@ -105,7 +105,7 @@ class HeaderComponentView: ArticleDetailComponentView {
         sourceLabel.text = article.sourceName
         
         if let date = article.publishedDate {
-            dateLabel.text = date.DateDescription
+            dateLabel.text = date.DateDescription()
         } else {
             dateLabel.text = article.publishedAt
         }

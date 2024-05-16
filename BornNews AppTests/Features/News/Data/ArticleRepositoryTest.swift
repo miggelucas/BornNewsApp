@@ -10,8 +10,9 @@ import XCTest
 
 class RemoteArticleDataSourceMock: ArticleRemoteDataSourceProtocol {
     
-    var shouldFetchHeadlineArticlesBeSuccessful: Bool = true
+    var shouldFetchBeSuccessful: Bool = true
     var didCallFetchHeadlineArticles: Bool = false
+    var didCallFetchSearchArticles: Bool = false
     
     var didCallFetchHeadlineForCategory: CategoryOption?
     
@@ -20,15 +21,22 @@ class RemoteArticleDataSourceMock: ArticleRemoteDataSourceProtocol {
         didCallFetchHeadlineArticles = true
         didCallFetchHeadlineForCategory = category
 
-        if shouldFetchHeadlineArticlesBeSuccessful {
+        if shouldFetchBeSuccessful {
             return []
         } else {
             throw RemoteDataSourceError.failedToFetch
         }
     }
     
-    func fetchSearchArticles(query: BornNews_App.QueryOption, language: LanguageOption, page: Int) async throws -> [ArticleModel] {
-        return []
+    func fetchSearchArticles(query: QueryOption, language: LanguageOption, page: Int) async throws -> [ArticleModel] {
+        
+        didCallFetchSearchArticles = true
+
+        if shouldFetchBeSuccessful {
+            return []
+        } else {
+            throw RemoteDataSourceError.failedToFetch
+        }
     }
 }
 
@@ -62,7 +70,7 @@ final class ArticleRepositoryTest: XCTestCase {
     
     func testGetHeadlineArticlesReturnSuccessWhenSuccessfulCallWithDatasource() async {
         
-        articleDataSourceMock.shouldFetchHeadlineArticlesBeSuccessful = true
+        articleDataSourceMock.shouldFetchBeSuccessful = true
         
         let result = await repository.getHeadlineHealthArticles(page: 1)
         
@@ -71,7 +79,7 @@ final class ArticleRepositoryTest: XCTestCase {
     
     func testGetHeadlineArticlesReturnFailureWhenCallWithDatasourceFails() async {
         
-        articleDataSourceMock.shouldFetchHeadlineArticlesBeSuccessful = true
+        articleDataSourceMock.shouldFetchBeSuccessful = true
         
         let result = await repository.getHeadlineHealthArticles(page: 1)
     

@@ -8,6 +8,16 @@
 import Foundation
 
 
+protocol ArticleRemoteDataSourceProtocol {
+    
+    func fetchHeadlineArticles(country: CountryOption,
+                               category: CategoryOption,
+                               page: Int) async throws -> [ArticleModel]
+    
+    func fetchSearchArticles(query: QueryOption, language: LanguageOption, page: Int) async throws -> [ArticleModel]
+}
+
+
 class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
     
     let networkSession: NetworkSession
@@ -49,7 +59,6 @@ class ArticleRemoteDataSource: ArticleRemoteDataSourceProtocol {
             let (data, _) = try await networkSession.data(for: request, delegate: nil)
             
             let fetchedData = try JSONDecoder().decode(ArticleResponse.self, from: data)
-            
             
             guard fetchedData.status == "ok" else { throw RemoteDataSourceError.serverError }
             

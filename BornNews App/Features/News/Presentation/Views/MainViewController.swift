@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
         setupTableView()
         setupRefreshControl()
         setupLoadingView()
-
+        
     }
     
     private func setupLoadingView() {
@@ -82,18 +82,16 @@ class MainViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
+        tableView.register(ArticleTableViewCell.self, forCellReuseIdentifier: ArticleTableViewCell.identifier)
         tableView.isHidden = true
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+              tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+              tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+              tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -138,10 +136,13 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.identifier, for: indexPath) as? ArticleTableViewCell else {
+            return UITableViewCell()
+        }
         
-        let cell = ArticleTableViewCell(style: .default, reuseIdentifier: ArticleTableViewCell.identifier)
         cell.configure(with: viewModel.articles[indexPath.row])
         return cell
+        
     }
     
     private func configureCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
@@ -160,7 +161,6 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         

@@ -30,7 +30,6 @@
 		0C55BE802BF27FBB00DEE9FD /* DescriptionComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55BE7F2BF27FBB00DEE9FD /* DescriptionComponentView.swift */; };
 		0C55BE842BF28CE300DEE9FD /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55BE832BF28CE300DEE9FD /* Date.swift */; };
 		0C55BE862BF2FB5A00DEE9FD /* ApiParamsOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55BE852BF2FB5A00DEE9FD /* ApiParamsOptions.swift */; };
-		0C57DFDB2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */; };
 		0C57DFDD2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */; };
 		0C57DFE12BEFE1E70045BFD9 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C57DFE02BEFE1E70045BFD9 /* ArticleRepository.swift */; };
 		0C73C8FE2BEFDAAF001355D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C73C8FD2BEFDAAF001355D7 /* AppDelegate.swift */; };
@@ -84,7 +83,6 @@
 		0C55BE7F2BF27FBB00DEE9FD /* DescriptionComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionComponentView.swift; sourceTree = "<group>"; };
 		0C55BE832BF28CE300DEE9FD /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0C55BE852BF2FB5A00DEE9FD /* ApiParamsOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsOptions.swift; sourceTree = "<group>"; };
-		0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRemoteDataSourceProtocol.swift; sourceTree = "<group>"; };
 		0C57DFDC2BEFE0F30045BFD9 /* ArticleRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepositoryTest.swift; sourceTree = "<group>"; };
 		0C57DFE02BEFE1E70045BFD9 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
 		0C73C8FA2BEFDAAF001355D7 /* BornNews App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BornNews App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,14 +229,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		0C57DFD92BEFE0090045BFD9 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				0C57DFDA2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		0C57DFDE2BEFE1B50045BFD9 /* ArticleDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,7 +341,6 @@
 			children = (
 				0C57DFDF2BEFE1C30045BFD9 /* ArticleRepository */,
 				0C57DFDE2BEFE1B50045BFD9 /* ArticleDataSource */,
-				0C57DFD92BEFE0090045BFD9 /* Protocols */,
 				0C57DFD82BEFDFFD0045BFD9 /* Model */,
 			);
 			path = Data;
@@ -554,7 +543,6 @@
 				0C124AF92BF0634F007FC28D /* NetworkSession.swift in Sources */,
 				0C124AF22BF04373007FC28D /* ViewControllerPreview.swift in Sources */,
 				0C124AF62BF0454E007FC28D /* MainViewModel.swift in Sources */,
-				0C57DFDB2BEFE0300045BFD9 /* ArticleRemoteDataSourceProtocol.swift in Sources */,
 				0C55BE7E2BF27F9C00DEE9FD /* HeaderComponentView.swift in Sources */,
 				0C73C9002BEFDAAF001355D7 /* SceneDelegate.swift in Sources */,
 				0C73C93D2BEFDEE2001355D7 /* ArticleModel.swift in Sources */,

@@ -16,16 +16,20 @@ protocol ArticleDetailViewModelCoordinator: AnyObject {
     func goToLink(url: URL)
 }
 
+
 class ArticleDetailViewModel {
     
     var article: Article
     
+    var networkSession: NetworkSession
+    
     weak var delegate: ArticleDetailViewModelDelegate?
     weak var coordinator: ArticleDetailViewModelCoordinator?
     
-    init(article: Article = ArticleModel.getSample(), coordinator: ArticleDetailViewModelCoordinator? = nil) {
+    init(article: Article = ArticleModel.getSample(), coordinator: ArticleDetailViewModelCoordinator? = nil, networkSession: NetworkSession = URLSession.shared) {
         self.article = article
         self.coordinator = coordinator
+        self.networkSession = networkSession
     
     }
     
@@ -39,7 +43,7 @@ class ArticleDetailViewModel {
         guard let url = URL(string: imageURLString) else { return nil }
         
         do {
-            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
+            let (data, _) = try await networkSession.data(for: URLRequest(url: url), delegate: nil)
             
             return data
 

@@ -14,7 +14,6 @@ protocol Article {
     var summary: String { get }
     var url: String { get }
     var urlToImage: String? { get }
-    var imageData: Data? { get set }
     var publishedAt: String { get }
     var content: String? { get }
 

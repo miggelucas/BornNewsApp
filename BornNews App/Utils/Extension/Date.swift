@@ -10,17 +10,19 @@ import Foundation
 extension Date {
     
     // ArticleTableViewCell
-    var shortDateDescription: String {
+    func shortDateDescription(locale: Locale = .current) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.locale = locale
+        formatter.dateStyle = .short
         
         return formatter.string(from: self)
     }
     
     // ArticleDetailViewController
-    var DateDescription: String {
+    func DateDescription(locale: Locale = .current) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM yyyy - HH:mm'hs'"
+        dateFormatter.locale = locale
+        dateFormatter.dateStyle = .medium
 
         return  dateFormatter.string(from: self)
     }
