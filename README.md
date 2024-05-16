@@ -1,6 +1,3 @@
-Sure! Below is a draft for your README file in English.
-
----
 
 # News App
 
