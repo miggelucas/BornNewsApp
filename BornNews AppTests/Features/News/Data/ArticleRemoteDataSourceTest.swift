@@ -87,7 +87,7 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
             let articles = try await dataSource.fetchHeadlineArticles(country: country, category: category, page: page)
             
             XCTAssertFalse(articles.isEmpty)
-        } catch let error {
+        } catch  {
             XCTFail("Should not have a erro to catch on this condition")
         }
     }
@@ -131,7 +131,7 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
             
             XCTAssertEqual(expectedUrl, url)
             
-        } catch let error {
+        } catch {
             XCTFail("Should not have a erro to catch on this condition")
         }
     }
@@ -161,7 +161,7 @@ final class ArticleRemoteDataSourceTests: XCTestCase {
             let articles = try await dataSource.fetchSearchArticles(query: query, language: language, page: page)
             
             XCTAssertFalse(articles.isEmpty)
-        } catch let error {
+        } catch {
             XCTFail("Should not throw error on this condition")
         }
     }

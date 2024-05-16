@@ -45,7 +45,7 @@ extension ArticleModel: Article {
     }
     
     var summary: String {
-        self.description ?? "Check out the link to know more about ir"
+        self.description ?? "Check out the link to know more about it"
     }
     
     var publishedDate: Date? {

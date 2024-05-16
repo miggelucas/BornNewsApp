@@ -9,7 +9,6 @@ import Foundation
 
 extension Date {
     
-    // ArticleTableViewCell
     func shortDateDescription(locale: Locale = .current) -> String {
         let formatter = DateFormatter()
         formatter.locale = locale
