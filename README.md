@@ -42,7 +42,7 @@ The News App is a simple news reader application that consumes data from the [Ne
 
 ### Configuration
 
-To fetch news articles, you need to obtain an API key from [NewsAPI](https://newsapi.org/). Once you have the key, add it to the project's configuration:
+To fetch news articles, you need to obtain an API key from [NewsAPI](https://newsapi.org/). Once you have the key, add it to the project's configuration (or just mine. I don't care):
 
 1. Open `Config.swift` file.
 2. Replace the placeholder API key with your actual API key:
