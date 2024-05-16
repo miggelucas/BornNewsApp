@@ -62,6 +62,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or inquiries, please contact me at [your email address].
 
----
-
-Feel free to customize this README further according to your preferences and specific project details.
