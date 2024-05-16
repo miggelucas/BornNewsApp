@@ -4,7 +4,7 @@ Sure! Below is a draft for your README file in English.
 
 # News App
 
-This repository contains the source code for a news application developed as a technical challenge proposed by Bornlogic for the position of Mid-Level iOS Developer. Although the position was canceled by the company, I decided to archive this project in my portfolio due to my interest in the challenge and the opportunity to demonstrate my skills.
+This repository contains the source code for a news application developed as a technical challenge proposed by [Bornlogic](https://www.linkedin.com/company/bornlogic/) for the position of Mid-Level iOS Developer. Although the position was canceled by the company, I decided to archive this project in my portfolio due to my interest in the challenge and the opportunity to demonstrate my skills.
 
 ## Project Overview
 
