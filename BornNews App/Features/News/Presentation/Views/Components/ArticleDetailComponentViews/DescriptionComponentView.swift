@@ -52,7 +52,7 @@ class DescriptionComponentView: ArticleDetailComponentView {
      
      func configure(with article: Article) {
          articleDescriptionLabel.text = article.summary
-         articleContentLabel.text = article.content
+         articleContentLabel.text = article.contentFormatted
          
          if let content = article.content, content.count > 200 {
              readMoreLabel.isHidden = false

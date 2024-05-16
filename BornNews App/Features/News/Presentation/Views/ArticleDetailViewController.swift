@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol ArticleDetailComponentView {
-    var view: UIView { get }
-    
-    func configure(with article: Article)
-}
+
 
 class ArticleDetailViewController: UIViewController {
     
@@ -27,6 +23,9 @@ class ArticleDetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        
         return imageView
     }()
     

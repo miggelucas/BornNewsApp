@@ -45,7 +45,7 @@ extension ArticleModel: Article {
     }
     
     var summary: String {
-        self.description ?? "Check out the link to know more about it"
+        self.description ?? "Fresh news"
     }
     
     var publishedDate: Date? {
@@ -54,21 +54,33 @@ extension ArticleModel: Article {
         
         return formatter.date(from: self.publishedAt)
     }
+    
+    var contentFormatted: String {
+        guard let contentRaw = self.content else {
+            return "Check out the source for more details"
+        }
+        
+        guard contentRaw.hasSuffix("chars]") else { return contentRaw }
+        guard let mark = contentRaw.ranges(of: "[+").last else { return contentRaw }
+        
+        let filteredString = contentRaw.replacingCharacters(in: mark.lowerBound..<contentRaw.endIndex, with: "[Check out the source for more details]")
+        
+        return filteredString
+    }
 }
 
 
 // MARK: Populate
 extension ArticleModel {
     static func getSample() -> ArticleModel {
-        return
-            ArticleModel(
-                source: SourceModel(id: nil, name: "Google News"), author: "Joel Khalili",
-                title: "FTX Creditors Say Payout Deal Is 'an Insult'—and Plan to Revolt",
-                description: "FTX has a plan to repay its former crypto customers more than the billions of dollars they lost in the latest bankruptcy proposal. But some will reject it anyway.",
-                url: "https://www.wired.com/story/ftx-creditors-crypto-payout-rejection/",
-                urlToImage: "https://media.wired.com/photos/663ba309e6755459097533ca/191:100/w_1280,c_limit/FTX-Bankruptcy-Business-GettyImages-1245052532.jpg",
-                publishedAt: "2024-05-08T17:00:02Z",
-                content: "Some creditors of the bankrupt crypto exchange FTX are preparing to reject a plan that would see them recover 118 percent of the money they lost. The proposal is far less generous than it might seem. Some creditors of the bankrupt crypto exchange FTX are preparing to reject a plan that would see them recover 118 percent of the money they lost. The proposal is far less generous than it might seem. Some creditors of the bankrupt crypto exchange FTX are preparing to reject a plan that would see them recover 118 percent of the money they lost. The proposal is far less generous than it might seem"
-            )
+        return ArticleModel(
+            source: SourceModel(id: nil, name: "Google News"), author: "Joel Khalili",
+            title: "FTX Creditors Say Payout Deal Is 'an Insult'—and Plan to Revolt",
+            description: "FTX has a plan to repay its former crypto customers more than the billions of dollars they lost in the latest bankruptcy proposal. But some will reject it anyway.",
+            url: "https://www.wired.com/story/ftx-creditors-crypto-payout-rejection/",
+            urlToImage: "https://media.wired.com/photos/663ba309e6755459097533ca/191:100/w_1280,c_limit/FTX-Bankruptcy-Business-GettyImages-1245052532.jpg",
+            publishedAt: "2024-05-08T17:00:02Z",
+            content: "Some creditors of the bankrupt crypto exchange FTX are preparing to reject a plan that would see them recover 118 percent of the money they lost. The proposal is far less generous than it might seem. Some creditors of the bankrupt crypto exchange FTX are preparing to reject a plan that would see them recover 118 percent of the money they lost. The proposal is far less generous than it might seem. Some creditors of the bankrupt crypto exchange FTX are preparing to reject a plan that would see them recover 118 percent of the money they lost. The proposal is far less generous than it might seem"
+        )
     }
 }

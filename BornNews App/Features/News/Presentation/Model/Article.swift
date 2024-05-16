@@ -18,5 +18,7 @@ protocol Article {
     var content: String? { get }
 
     var publishedDate: Date? { get }
+    var contentFormatted: String { get }
+    
     
 }
