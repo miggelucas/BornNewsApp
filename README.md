@@ -15,9 +15,7 @@ The News App is a simple news reader application that consumes data from the [Ne
 ## Features
 
 - Fetch and display the latest news articles from NewsAPI.
-- Search for news articles by keyword.
 - View detailed information about selected articles.
-- Mark articles as favorites for quick access.
 
 ## Technologies Used
 
@@ -25,13 +23,6 @@ The News App is a simple news reader application that consumes data from the [Ne
 - **URLSession**: To handle API requests and network communication.
 - **XCTest**: For writing and executing unit and integration tests.
 - **MVVM Architecture**: To separate concerns and facilitate testing and maintenance.
-
-## Getting Started
-
-### Prerequisites
-
-- Xcode 12.0 or later
-- Swift 5.3 or later
 
 
 ### Running the App
@@ -49,10 +40,6 @@ To fetch news articles, you need to obtain an API key from [NewsAPI](https://new
    ```swift
    static let apiKey = "YOUR_API_KEY"
    ```
-
-## Contributing
-
-If you wish to contribute to this project, feel free to submit pull requests or report issues. Contributions are always welcome!
 
 ## License
 
